@@ -30,28 +30,46 @@ public class main {
 
 	public static RatingList predictRatings(UserList userList,
 			MovieList movieList, RatingList ratingList, RatingList predRatings) {
+		
 		HashMap<Movie, ArrayList<Rating>> MovieMap = mapMovie(ratingList);
 		HashMap<User, ArrayList<Rating>> UserMap = mapUser(ratingList);
+		
 		//Get the Rating we want to predict
 		for(int i = 0; i< predRatings.size(); i++){
 			Rating r = predRatings.get(i);
 			User ur = r.getUser();
 			Movie mr = r.getMovie();
 			ArrayList<Rating> ar = new ArrayList<Rating>();
+			ArrayList<Rating> movier = new ArrayList<Rating>();
 			ArrayList<Movie> am = new ArrayList<Movie>();
+			double sum = 0.0;
+			double sum2 = 0.0;
 
 			// Arraylist with the ratings of the user
 			ar = UserMap.get(ur);
 //			HashMap<Movie, Double> RatingMap = mapRating(ar);
+			
+			//Get average of users ratings
 			if(ar.isEmpty()){
-				predRatings.get(i).setRating(3.0);
+				sum = 0.0;
 			}
-			double sum = 0;
-			for(int n = 0; n<ar.size(); n++){
-				sum = sum + ar.get(n).getRating();
+			else{
+				for(int n = 0; n<ar.size(); n++){
+					sum = sum + ar.get(n).getRating();
+				}
+				sum = sum/ar.size();
 			}
 			
-			predRatings.get(i).setRating(sum/ar.size());
+			//Get average of other users rating of the movie
+			if(MovieMap.containsKey(mr)){
+				movier = MovieMap.get(mr);
+				for(int o = 0; o<movier.size(); o++){
+					sum2 = sum2 + movier.get(o).getRating();
+				}
+				sum2 = sum2 / movier.size();
+			}
+			
+				predRatings.get(i).setRating((sum + sum2)/2);
 			
 //			for(int k = 0; k<ar.size(); k++){
 //				am.add(ar.get(k).getMovie());
