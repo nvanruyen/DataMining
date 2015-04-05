@@ -26,7 +26,8 @@ public class main {
 
 		// Write result file
 		predRatings.writeResultsFile("submission.csv");
-	}
+
+    }
 
 	public static RatingList predictRatings(UserList userList,
 			MovieList movieList, RatingList ratingList, RatingList predRatings) {

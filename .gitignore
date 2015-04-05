@@ -1,0 +1,2 @@
+# .idea map should not be shared on version control
+.idea/
