@@ -10,6 +10,7 @@ public class main {
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.US);
 		// Create user list, movie list, and list of ratings
+        // blabla test voor github
 		UserList userList = new UserList();
 		userList.readFile("data/users.csv");
 		MovieList movieList = new MovieList();
